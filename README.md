@@ -7,7 +7,8 @@
 
 ## 説明
 このプログラムは，[Llama-3.1-Swallow-8B-Instruct-v0.1](https://huggingface.co/tokyotech-llm/Llama-3.1-Swallow-8B-Instruct-v0.1)を
-[日本の判例のデータ](https://github.com/japanese-law-analysis/data_set)でファインチューニングするプログラムです．
+[日本の判例のデータ](https://github.com/japanese-law-analysis/data_set)でファインチューニングするプログラムです．  
+判決・決定の要旨から理由を生成することを目的とします．  
 
 ## 実行環境
 Ubuntu 22.04 LTS + Python 3.10 (venv) + CUDA v11.8
@@ -21,15 +22,18 @@ source .llm/bin/activate
 pip install -r requirements.txt
 ~~~
 
+（以下の2つの手順は，`dataset/output.json`を用いて実行する場合は不要です．）  
 2. [日本の判例のデータ](https://github.com/japanese-law-analysis/data_set)をダウンロードする．
 3. `data_set/precedent/`の中身を`dataset`ディレクトリにコピーする．
 
 ## 実行手順
 ### データセットの作成
 以下のプログラムを実行し，ファインチューニング用のデータセットを作成する．  
-このデータセットは，準備でダウンロードしたデータから，
+`dataset/output.json`にこの処理を行った後のデータを入れてありますので，それを利用する場合，この工程は不要です．  
+  
+作成するデータセットは，準備でダウンロードしたデータから，
 要旨と理由のセットとなっている判決・決定を抽出する．  
-理由の切り出しは，「当裁判所の判断」又は「その理由は，次のとおりである」から「判決する」又は「決定する」までの区間です．
+理由の切り出しは，「当裁判所の判断」又は「その理由は，次のとおりである」から「判決する」又は「決定する」までの区間です．  
 
 ~~~ python
 python3 src/make_dataset.py
@@ -57,7 +61,7 @@ python3 src/test_model.py
 実行結果の例として，[検察官がした刑事確定訴訟記録の閲覧申出一部不許可処分に対する準抗告棄却決定に対する特別抗告事件](https://www.courts.go.jp/app/hanrei_jp/detail2?id=38040)のテストデータを，
 `dataset/test.json`に用意してあります．
 出力結果は，`content/results.txt`に例示しています．  
-それっぽい文章になっているが，単語の間違いや意味の繋がらない理論構成が見える結果となったので，
+それっぽい文章になってますが，単語の間違いや意味の繋がらない理論構成が見える結果となったので，
 これらを考慮できるような処理やデータの収集を検討中です．
 
 ## 参考サイト
