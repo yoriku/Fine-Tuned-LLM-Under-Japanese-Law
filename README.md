@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ~~~
 
 （以下の2つの手順は，`dataset/output.json`を用いて実行する場合は不要です．）  
-2. [日本の判例のデータ](https://github.com/japanese-law-analysis/data_set)をダウンロードする．
+2. [日本の判例のデータ](https://github.com/japanese-law-analysis/data_set)をダウンロードする．  
 3. `data_set/precedent/`の中身を`dataset`ディレクトリにコピーする．
 
 ## 実行手順
@@ -31,8 +31,8 @@ pip install -r requirements.txt
 以下のプログラムを実行し，ファインチューニング用のデータセットを作成する．  
 `dataset/output.json`にこの処理を行った後のデータを入れてありますので，それを利用する場合，この工程は不要です．  
   
-作成するデータセットは，準備でダウンロードしたデータから，
-要旨と理由のセットとなっている判決・決定を抽出する．  
+データセットは，準備でダウンロードしたデータから，
+要旨と理由のセットとなっている判決・決定を抽出して作成します．  
 理由の切り出しは，「当裁判所の判断」又は「その理由は，次のとおりである」から「判決する」又は「決定する」までの区間です．  
 
 ~~~ python
